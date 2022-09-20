@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <AppLanguage>en</AppLanguage>
+  <SubscribedUrls>
+    <string>iros://Url/https$github.com/tsunamods-codes/7th-Heaven-Catalogs/releases/download/canary/qhimm.xml</string>
+    <string>iros://Url/https$github.com/tsunamods-codes/7th-Heaven-Catalogs/releases/download/canary/sega.xml</string>
+  </SubscribedUrls>
+  <ExtraFolders>
+    <string>direct</string>
+    <string>music</string>
+    <string>sfx</string>
+    <string>voice</string>
+    <string>ambient</string>
+    <string>lighting</string>
+  </ExtraFolders>
+  <Subscriptions>
+    <Subscription>
+      <LastSuccessfulCheck>0001-01-01T00:00:00</LastSuccessfulCheck>
+      <FailureCount>0</FailureCount>
+      <Url>iros://Url/https$github.com/tsunamods-codes/7th-Heaven-Catalogs/releases/download/canary/qhimm.xml</Url>
+      <Name>Qhimm Catalog</Name>
+    </Subscription>
+    <Subscription>
+      <LastSuccessfulCheck>0001-01-01T00:00:00</LastSuccessfulCheck>
+      <FailureCount>0</FailureCount>
+      <Url>iros://Url/https$github.com/tsunamods-codes/7th-Heaven-Catalogs/releases/download/canary/sega.xml</Url>
+      <Name>Sega Catalog</Name>
+    </Subscription>
+  </Subscriptions>
+  <LibraryLocation>C:\Games\FINAL FANTASY VII\mods\7th Heaven</LibraryLocation>
+  <FF7Exe>C:\Games\FINAL FANTASY VII\FF7.exe</FF7Exe>
+  <AaliFolder>C:\Games\FINAL FANTASY VII\mods\Textures</AaliFolder>
+  <MovieFolder>C:\Games\FINAL FANTASY VII\data\movies</MovieFolder>
+  <FFNxUpdateChannel>Stable</FFNxUpdateChannel>
+  <AppUpdateChannel>Stable</AppUpdateChannel>
+  <LastUpdateCheck>0001-01-01T00:00:00</LastUpdateCheck>
+  <Options>
+    <GeneralOptions>AutoActiveNewMods</GeneralOptions>
+    <GeneralOptions>AutoImportMods</GeneralOptions>
+    <GeneralOptions>CheckForUpdates</GeneralOptions>
+    <GeneralOptions>WarnAboutModCode</GeneralOptions>
+  </Options>
+  <IntOptions>None</IntOptions>
+  <CurrentProfile>Default</CurrentProfile>
+  <IsFirstStart>false</IsFirstStart>
+  <GameLaunchSettings>
+    <AutoMountGameDisc>false</AutoMountGameDisc>
+    <AutoUnmountGameDisc>false</AutoUnmountGameDisc>
+    <AutoUpdateDiscPath>false</AutoUpdateDiscPath>
+    <MountingOption>MountWithPowerShell</MountingOption>
+    <DisableReunionOnLaunch>true</DisableReunionOnLaunch>
+    <ReverseSpeakers>false</ReverseSpeakers>
+    <LogarithmicVolumeControl>true</LogarithmicVolumeControl>
+    <SelectedSoundDevice>00000000-0000-0000-0000-000000000000</SelectedSoundDevice>
+    <SelectedMidiData>GENERAL_MIDI</SelectedMidiData>
+    <ShowLauncherWindow>true</ShowLauncherWindow>
+    <HasDisplayedOggMusicWarning>false</HasDisplayedOggMusicWarning>
+    <HasDisplayedMovieWarning>false</HasDisplayedMovieWarning>
+    <EnablePs4ControllerService>false</EnablePs4ControllerService>
+    <WorkaroundErrorCode5>false</WorkaroundErrorCode5>
+    <EnableGamepadPolling>false</EnableGamepadPolling>
+    <InGameConfigOption>[Default] Steam KB+PlayStation (Stock).cfg</InGameConfigOption>
+  </GameLaunchSettings>
+</Settings>

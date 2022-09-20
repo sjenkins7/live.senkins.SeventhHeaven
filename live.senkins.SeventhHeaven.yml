@@ -1,0 +1,63 @@
+app-id: live.senkins.SeventhHeaven
+runtime: org.freedesktop.Platform
+runtime-version: '22.08'
+sdk: org.freedesktop.Sdk
+base: org.winehq.Wine
+base-version: stable-22.08
+command: run.sh
+modules:
+  - name: hello
+    buildsystem: simple
+    build-commands:
+      - install -D run.sh /app/bin/run.sh
+      - install -D settings.xml /app/etc/7th-heaven/settings.xml
+      - install -D FFNx.toml /app/etc/7th-heaven/FFNx.toml
+    sources:
+      - type: file
+        path: run.sh
+      - type: file
+        path: settings.xml
+      - type: file
+        path: FFNx.toml
+      - type: extra-data
+        filename: 7thHeaven-v2.6.1.0_Release.exe
+        url: https://github.com/tsunamods-codes/7th-Heaven/releases/download/2.6.1/7thHeaven-v2.6.1.0_Release.exe
+        sha256: b386db0cc0f44d8f93f908a9a905d9c86b82e6c6d486c8c61759b4088999068d
+        size: 20212157
+      - type: extra-data
+        filename: vkd3d-proton-2.6.tar.zst
+        url: https://github.com/HansKristian-Work/vkd3d-proton/releases/download/v2.6/vkd3d-proton-2.6.tar.zst
+        sha256: c76d2e5ab28230c746c6a5dc112d23e3db9963b456cf390e5ac67ea2e8674aa5
+        size: 2200298
+finish-args:
+  - --share=ipc
+  - --socket=x11
+  - --socket=wayland
+  - --socket=pulseaudio
+  - --device=all
+  - --share=network
+  - --allow=multiarch
+  - --allow=devel
+  - --talk-name=org.gnome.Mutter.DisplayConfig
+  - --system-talk-name=org.freedesktop.UDisks2
+  # - --filesystem=home
+  # - --filesystem=/run/media
+  # For Debian
+  # - --filesystem=/media
+  - --filesystem=~/.var/app/com.valvesoftware.Steam:ro
+  - --env=WINEDLLPATH=/app/dlls/lib32:/app/dlls/lib
+  - --env=WINEPREFIX=/var/data/wine
+  - --env=WINEDLLOVERRIDES=winemenubuilder.exe=d
+  - --env=GST_PLUGIN_SYSTEM_PATH=/app/lib32/gstreamer-1.0:/app/lib/gstreamer-1.0:/usr/lib/i386-linux-gnu/gstreamer-1.0:/usr/lib/x86_64-linux-gnu/gstreamer-1.0
+  # System tray icon
+  - --talk-name=org.kde.StatusNotifierWatcher
+  - --talk-name=org.freedesktop.Flatpak
+  - --filesystem=xdg-data/flatpak:ro
+inherit-extensions:
+  - org.freedesktop.Platform.Compat.i386
+  - org.freedesktop.Platform.Compat.i386.Debug
+  - org.freedesktop.Platform.GL32
+  - org.freedesktop.Platform.VAAPI.Intel.i386
+  - org.freedesktop.Platform.ffmpeg-full
+  - org.freedesktop.Platform.ffmpeg_full.i386
+  - org.winehq.Wine.DLLs
