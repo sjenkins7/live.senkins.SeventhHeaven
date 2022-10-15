@@ -17,7 +17,7 @@
 # - 4: Direct3D12
 # - 5: Vulkan
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~
-renderer_backend = 4
+renderer_backend = 5
 
 #[FULLSCREEN]
 # If off, it will run in window mode.

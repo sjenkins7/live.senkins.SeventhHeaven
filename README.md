@@ -18,7 +18,13 @@ Takes a while due to all the winetricks installs
 * winetricks aren't all silent installs
 * DotNET is required as Mono doesn't display the correct CD label
 * DotNET 4.8 is awkward and may fail to install for any number of reasons
-* Game gets tripped up and fails to launch, because it thinks the CD is missing, despite having the full game
-* Due to how 7th Heaven installs FFNx, the initial config usually gets overwritten on first setup
-  * Game will crash without the correct config
-* So far, only appears to reliably launch with VKD3D & DX12 configured
+* It takes a moment to load on the Steam Deck - you will see a black screen for some time
+* 7th Heaven appears to be overriding the FFNx config provided
+
+# TODO
+
+* Write a wrapper that better handles winetricks silently
+* Find a way to resolve the crash on boot with mods
+* Find the issue causing Mono to fail to detect the disc & raise upstream
+* Remove wine file associations
+* Map Steam Deck controls

@@ -1,0 +1,12 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Square Soft, Inc.\Final Fantasy VII]
+"AppPath"="C:\\Games\\FINAL FANTASY VII\\"
+"DataDrive"="X:\\"
+"DataPath"="C:\\Games\\FINAL FANTASY VII\\data\\"
+"DiskNo"=dword:00000000
+"FullInstall"=dword:00000001
+"MoviePath"="C:\\Games\\FINAL FANTASY VII\\data\\movies\\"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wine\Drives]
+"x:"="cdrom"

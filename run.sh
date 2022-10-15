@@ -1,8 +1,28 @@
-#!/bin/sh
+#!/bin/bash
+
 set -euo pipefail
 
+STEAM_DIRECTORIES=( 
+    # Steam Flatpak
+    ~/.var/app/com.valvesoftware.Steam/data/Steam
+    # Steam Native ( Steam Deck )
+    ~/.local/share/Steam
+    #!FIXME - Steam Deck SD Card?
+)
+
+detect_ff7_install() {
+    for dir in "${STEAM_DIRECTORIES[@]}"
+    do
+        if [ -d "${dir}/steamapps/common/FINAL FANTASY VII" ]
+        then
+            echo "${dir}/steamapps/common/FINAL FANTASY VII"
+            return
+        fi
+    done
+}
+
 # Don't let wine prompt for mono
-WINEDLLOVERRIDES="mscoree,mshtml=" wineboot --init
+WINEDLLOVERRIDES="mscoree=d,mshtml=d" wineboot --init
 
 winetricks d3dx9 -q
 winetricks msls31 -q
@@ -16,35 +36,34 @@ winetricks vcrun2019 -q
 winetricks dotnet48 -q
 
 # Download and install 7th Heaven into prefix
-wine /app/extra/7thHeaven-v2.6.1.0_Release.exe /VERYSILENT
+wine /app/extra/7thHeaven-Setup.exe /VERYSILENT
 
 # Setup Virtual Disc
 mkdir -p "${WINEPREFIX}/drive_c/FF7DISC1"
 echo "FF7DISC1" > "${WINEPREFIX}/drive_c/FF7DISC1/.windows-label"
 echo "44000000" > "${WINEPREFIX}/drive_c/FF7DISC1/.windows-serial"
 touch "${WINEPREFIX}/drive_c/FF7DISC1/FF7DISC1.TXT"
-rm -f "${WINEPREFIX}/dosdevices/x:"
-ln -sv "../drive_c/FF7DISC1/" "${WINEPREFIX}/dosdevices/x:"
-
-# Install VKD3D
-TMPDIR=$(mktemp -d)
-tar -xvf /app/extra/vkd3d-proton-2.6.tar.zst -C "${TMPDIR}" --strip=1
-"${TMPDIR}/setup_vkd3d_proton.sh" install
-rm -rf "${TMPDIR}"
+ln -sfv "${WINEPREFIX}/drive_c/FF7DISC1" "${WINEPREFIX}/dosdevices/x:"
+wine regedit /app/etc/ff7.reg
 
 # Pull FF7 from Steam
-#! FIXME - what if its not in the default location?
 if [ ! -f "${WINEPREFIX}/drive_c/Games/FINAL FANTASY VII/FF7_Launcher.exe" ]
 then
     rm -rf "${WINEPREFIX}/drive_c/Games/FINAL FANTASY VII/"
     mkdir -p "${WINEPREFIX}/drive_c/Games/"
-    cp -r ~/.var/app/com.valvesoftware.Steam/data/Steam/steamapps/common/FINAL\ FANTASY\ VII/ "${WINEPREFIX}/drive_c/Games/"
+    ff7_path=$(detect_ff7_install)
+    if [ -z "${ff7_path}" ]
+    then
+        echo "Can't Detect an FF7 Install - FF7 needs to be installed manually" >&2
+        exit 1
+    fi
+    cp -r "${ff7_path}" "${WINEPREFIX}/drive_c/Games/"
 fi
 
 # Ensure the pre-steam patch is installed
 if [ ! -f "${WINEPREFIX}/drive_c/Games/FINAL FANTASY VII/FF7.exe" ]
 then
-    cp "${WINEPREFIX}/drive_c/Program Files/7th Heaven/Resources/FF7_1.02_Eng_Patch/ff7.exe" "${WINEPREFIX}/drive_c/Games/FINAL FANTASY VII/FF7.exe"
+    cp "${WINEPREFIX}/drive_c/Program Files/7th Heaven/Resources/FF7_1.02_Eng_Patch/ff7.exe" "${WINEPREFIX}/drive_c/Games/FINAL FANTASY VII/ff7.exe"
     cp "${WINEPREFIX}/drive_c/Program Files/7th Heaven/Resources/FF7_1.02_Eng_Patch/FF7Config.exe" "${WINEPREFIX}/drive_c/Games/FINAL FANTASY VII/FF7Config.exe"
 fi
 
@@ -62,7 +81,14 @@ then
     ln -sfv "${XDG_CONFIG_HOME}/7thWorkshop/settings.xml" "${WINEPREFIX}/drive_c/Program Files/7th Heaven/7thWorkshop/"
 fi
 
-# Install Default FFNx settings suitable for Flatpak installs
+# Ensure FFNx is installed
+if [ ! -f "${WINEPREFIX}/drive_c/Games/FINAL FANTASY VII/FFNx.dll" ]
+then
+    unzip -o /app/extra/FFNx.zip -d "${WINEPREFIX}/drive_c/Games/FINAL FANTASY VII/"
+    wine regedit "${WINEPREFIX}/drive_c/Games/FINAL FANTASY VII/FFNx.reg"
+fi
+
+Install Default FFNx settings suitable for Flatpak installs
 if [ ! -f "${XDG_CONFIG_HOME}/FFNx/FFNx.toml" ]
 then
     mkdir -p "${XDG_CONFIG_HOME}/FFNx/"
@@ -74,9 +100,5 @@ then
     ln -sfv "${XDG_CONFIG_HOME}/FFNx/FFNx.toml" "${WINEPREFIX}/drive_c/Games/FINAL FANTASY VII/"
 fi
 
-# bash 
-
-# cd "${WINEPREFIX}/drive_c/Games/FINAL FANTASY VII"
-# wine ./FF7.exe
 cd "${WINEPREFIX}/drive_c/Program Files/7th Heaven"
 wine "./7th Heaven.exe"

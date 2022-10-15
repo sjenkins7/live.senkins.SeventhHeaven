@@ -6,29 +6,41 @@ base: org.winehq.Wine
 base-version: stable-22.08
 command: run.sh
 modules:
-  - name: hello
+  - name: ffnx 
+    buildsystem: simple
+    build-commands:
+      - install -D FFNx.toml /app/etc/FFNx.toml
+    sources:
+      - type: file
+        path: FFNx.toml
+      - type: extra-data
+        filename: FFNx.zip
+        url: https://github.com/julianxhokaxhiu/FFNx/releases/download/1.14.0/FFNx-FF7_1998-v1.14.0.0.zip
+        sha256: dbac9b9a3a53f12d7d7d67a45b4f9feec8e70dbc9aff83603c4d201dfa51e70f
+        size: 40216850
+  - name: 7th-heaven
+    buildsystem: simple
+    build-commands:
+      - install -D settings.xml /app/etc/7th-heaven/settings.xml
+    sources:
+      - type: file
+        path: settings.xml
+      - type: extra-data
+        filename: 7thHeaven-Setup.exe
+        url: https://github.com/tsunamods-codes/7th-Heaven/releases/download/2.7.0/7thHeaven-v2.7.0.0_Release.exe
+        sha256: 445681dfac32db39200537acdbd8daf60b87da540e0df892de00e71bd8ccbf07
+        size: 20208560
+  - name: main
     buildsystem: simple
     build-commands:
       - install -D run.sh /app/bin/run.sh
-      - install -D settings.xml /app/etc/7th-heaven/settings.xml
-      - install -D FFNx.toml /app/etc/7th-heaven/FFNx.toml
+      - install -D ff7.reg /app/etc/ff7.reg
     sources:
       - type: file
         path: run.sh
       - type: file
-        path: settings.xml
-      - type: file
-        path: FFNx.toml
-      - type: extra-data
-        filename: 7thHeaven-v2.6.1.0_Release.exe
-        url: https://github.com/tsunamods-codes/7th-Heaven/releases/download/2.6.1/7thHeaven-v2.6.1.0_Release.exe
-        sha256: b386db0cc0f44d8f93f908a9a905d9c86b82e6c6d486c8c61759b4088999068d
-        size: 20212157
-      - type: extra-data
-        filename: vkd3d-proton-2.6.tar.zst
-        url: https://github.com/HansKristian-Work/vkd3d-proton/releases/download/v2.6/vkd3d-proton-2.6.tar.zst
-        sha256: c76d2e5ab28230c746c6a5dc112d23e3db9963b456cf390e5ac67ea2e8674aa5
-        size: 2200298
+        path: ff7.reg
+
 finish-args:
   - --share=ipc
   - --socket=x11
@@ -38,21 +50,16 @@ finish-args:
   - --share=network
   - --allow=multiarch
   - --allow=devel
-  - --talk-name=org.gnome.Mutter.DisplayConfig
   - --system-talk-name=org.freedesktop.UDisks2
-  # - --filesystem=home
-  # - --filesystem=/run/media
-  # For Debian
-  # - --filesystem=/media
+  - --system-talk-name=org.freedesktop.NetworkManager
+  # Steam Flatpak
   - --filesystem=~/.var/app/com.valvesoftware.Steam:ro
+  # Steam Deck
+  - --filesystem=xdg-data/Steam:ro
   - --env=WINEDLLPATH=/app/dlls/lib32:/app/dlls/lib
   - --env=WINEPREFIX=/var/data/wine
   - --env=WINEDLLOVERRIDES=winemenubuilder.exe=d
   - --env=GST_PLUGIN_SYSTEM_PATH=/app/lib32/gstreamer-1.0:/app/lib/gstreamer-1.0:/usr/lib/i386-linux-gnu/gstreamer-1.0:/usr/lib/x86_64-linux-gnu/gstreamer-1.0
-  # System tray icon
-  - --talk-name=org.kde.StatusNotifierWatcher
-  - --talk-name=org.freedesktop.Flatpak
-  - --filesystem=xdg-data/flatpak:ro
 inherit-extensions:
   - org.freedesktop.Platform.Compat.i386
   - org.freedesktop.Platform.Compat.i386.Debug
@@ -61,3 +68,5 @@ inherit-extensions:
   - org.freedesktop.Platform.ffmpeg-full
   - org.freedesktop.Platform.ffmpeg_full.i386
   - org.winehq.Wine.DLLs
+  - org.winehq.Wine.gecko
+  - org.winehq.Wine.mono
