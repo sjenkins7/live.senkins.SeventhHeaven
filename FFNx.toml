@@ -24,6 +24,11 @@ renderer_backend = 5
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~
 fullscreen = false
 
+#[BORDERLESS]
+# If off, it will run using the default window style.
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~
+borderless = false
+
 #[RESOLUTION]
 # Resolution of the game.
 # Default (value = 0):
@@ -43,11 +48,14 @@ window_size_y = 0
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~
 internal_resolution_scale = 0
 
-#[PRESERVE ASPECT]
+#[ASPECT RATIO]
 # Preserve original game aspect ratio of (4:3) by adding black bars on the left and right side (if needed)
 # When off the game will be stretched to fit the window's aspect ratio; Be aware the game may look wrong though.
+# 0: Preserves original game aspect ratio of (4:3) by adding black bars on the left and right side (if needed)
+# 1: Stretched to fit the window's aspect ratio; Be aware the game may look wrong though.
+# 2: New 16:9 aspect ratio mode without stretching the image. Fields that lack horizontal scrolling will show black bars on the left and right side.
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~
-preserve_aspect = true
+aspect_ratio = 0
 
 #[ENABLE VSYNC]
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -116,12 +124,12 @@ external_audio_number_of_channels = 2
 # The number MUST be one of the known sample rates values ( 44100, 48000, etc. )
 # NOTE: 0 = Autodetect. It will use the sample rate set in your audio card and/or inherited through audio software enhancements suites.
 # WARNING: This flag WILL impact the OVERALL external audio layer ( Music, SFX, Voice, Ambient, etc.)!
-external_audio_sample_rate = 96000
+external_audio_sample_rate = 44100
 
 #[USE EXTERNAL SFX]
 # This flag will enable/disable the support of an enhanced audio layer to reproduce sounds in-game.
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~
-use_external_sfx = true
+use_external_sfx = false
 
 #[EXTERNAL SFX PATH]
 # Path of the external sound files
@@ -139,13 +147,13 @@ external_sfx_ext = "ogg"
 
 #[EXTERNAL SFX ALWAYS CENTERED]
 # This flag will force the external SFX sounds to be played always on the center position instead of inheriting the left/center/right original logic.
-external_sfx_always_centered = true
+external_sfx_always_centered = false
 
 #[USE EXTERNAL MUSIC]
 # This flag will enable/disable the support of an enhanced audio layer to reproduce music in-game.
 # If you leave out the default configuration FFNx will autodetect your environment and will set it to the best available option.
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~
-use_external_music = false
+use_external_music = true
 
 #[EXTERNAL MUSIC RESUME]
 # This flag will enable the support for music resume on known areas of the game ( for eg. World-Map ).
@@ -210,6 +218,10 @@ enable_voice_music_fade = false
 # Range: 0-100 ( Min = 0, Max = 100)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~
 external_voice_music_fade_volume = 25
+
+#[ENABLE VOICE AUTO TEXT]
+# This will allow you to enable or disable the Voice Auto-Text feature. When enabled the game will automatically close the dialogue as soon as the voice acting is finished for that line.
+enable_voice_auto_text = true
 
 #[EXTERNAL AMBIENT PATH]
 # Path of the external ambient files
@@ -368,10 +380,6 @@ enable_animated_textures = false
 # This field can be a single field name, or an array of field names.
 # NOTE: This is an actual BLACKLIST and it will have an impact ONLY when 'enable_animated_textures = true'
 disable_animated_textures_on_field = ""
-
-# Enable the usage of a new hashing algorithm for animated textures, which is faster on weak CPUs
-# WARNING: Mods MIGHT not be ready for this yet, use with caution!
-use_animated_textures_v2 = false
 
 ##########################
 # DEBUGGING OPTIONS
@@ -533,7 +541,7 @@ ff7_fps_limiter = 1
 
 # Allow the sfx footstep sound to be played everytime you move in fields
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~
-ff7_footsteps = true
+ff7_footsteps = false
 
 # Include armor in magic defense calculation
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -542,6 +550,13 @@ mdef_fix = true
 # Play opening music via external music, the opening movie needs to be modified to not play the music
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ff7_external_opening_music = false
+
+# FIELD mode vertical center
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# This flag will center vertically the game when in FIELD mode
+# NOTE: Previously this was done via a hext file
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ff7_field_center = true
 
 ## MODDER OPTIONS - These options are mostly useful to modders and should not be enabled during normal play.
 

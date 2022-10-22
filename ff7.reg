@@ -7,6 +7,3 @@ Windows Registry Editor Version 5.00
 "DiskNo"=dword:00000000
 "FullInstall"=dword:00000001
 "MoviePath"="C:\\Games\\FINAL FANTASY VII\\data\\movies\\"
-
-[HKEY_LOCAL_MACHINE\SOFTWARE\Wine\Drives]
-"x:"="cdrom"

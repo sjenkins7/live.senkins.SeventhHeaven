@@ -21,7 +21,7 @@ modules:
   - name: 7th-heaven
     buildsystem: simple
     build-commands:
-      - install -D settings.xml /app/etc/7th-heaven/settings.xml
+      - install -D settings.xml /app/etc/settings.xml
     sources:
       - type: file
         path: settings.xml
@@ -35,11 +35,14 @@ modules:
     build-commands:
       - install -D run.sh /app/bin/run.sh
       - install -D ff7.reg /app/etc/ff7.reg
+      - install -D cd.reg /app/etc/cd.reg
     sources:
       - type: file
         path: run.sh
       - type: file
         path: ff7.reg
+      - type: file
+        path: cd.reg
 
 finish-args:
   - --share=ipc

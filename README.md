@@ -19,6 +19,7 @@ Takes a while due to all the winetricks installs
 * DotNET is required as Mono doesn't display the correct CD label
 * DotNET 4.8 is awkward and may fail to install for any number of reasons
 * It takes a moment to load on the Steam Deck - you will see a black screen for some time
+* Quitting the game often causes it to lock up - use `flatpak kill` to force close the game
 * 7th Heaven appears to be overriding the FFNx config provided
 
 # TODO
