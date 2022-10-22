@@ -88,7 +88,7 @@ then
     wine regedit "${WINEPREFIX}/drive_c/Games/FINAL FANTASY VII/FFNx.reg"
 fi
 
-Install Default FFNx settings suitable for Flatpak installs
+#Install Default FFNx settings suitable for Flatpak installs
 if [ ! -f "${XDG_CONFIG_HOME}/FFNx/FFNx.toml" ]
 then
     mkdir -p "${XDG_CONFIG_HOME}/FFNx/"
