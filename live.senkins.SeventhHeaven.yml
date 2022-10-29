@@ -27,9 +27,9 @@ modules:
         path: settings.xml
       - type: extra-data
         filename: 7thHeaven-Setup.exe
-        url: https://github.com/tsunamods-codes/7th-Heaven/releases/download/2.7.0/7thHeaven-v2.7.0.0_Release.exe
-        sha256: 445681dfac32db39200537acdbd8daf60b87da540e0df892de00e71bd8ccbf07
-        size: 20208560
+        url: https://github.com/tsunamods-codes/7th-Heaven/releases/download/2.7.1/7thHeaven-v2.7.1.0_Release.exe
+        sha256: 8c1adbb1deca0efaed145232268f35ca0a00aba71e6315008ab7361d3ace56c3
+        size: 20221645
   - name: main
     buildsystem: simple
     build-commands:
