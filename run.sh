@@ -26,16 +26,15 @@ init_wine() {
     # Don't let wine prompt for mono
     WINEDLLOVERRIDES="mscoree=d,mshtml=d" wineboot --init
 
-    winetricks d3dx9 -q
-    winetricks msls31 -q
-    winetricks riched20 -q
-    winetricks corefonts -q
-    winetricks d3dcompiler_43 -q
-    winetricks d3dcompiler_47 -q
+    winetricks -q d3dx9
+    winetricks -q msls31
+    winetricks -q riched20
+    winetricks -q corefonts
+    winetricks -q d3dcompiler_43
+    winetricks -q d3dcompiler_47
 
-    #! FIXME - these winetricks installs aren't actually quiet - might need to tackle these manually...
-    winetricks vcrun2019 -q 
-    winetricks dotnet48 -q
+    winetricks -q vcrun2019 
+    winetricks -q dotnet48
 }
 
 setup_disc() {
