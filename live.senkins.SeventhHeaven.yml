@@ -59,7 +59,6 @@ finish-args:
   - --filesystem=~/.var/app/com.valvesoftware.Steam:ro
   # Steam Deck
   - --filesystem=xdg-data/Steam:ro
-  - --env=WINEARCH=win32
   - --env=WINEDLLPATH=/app/dlls/lib32:/app/dlls/lib
   - --env=WINEPREFIX=/var/data/wine
   - --env=WINEDLLOVERRIDES=winemenubuilder.exe=d,d3d9=d,d3d10core=d,d3d11=d,dxgi=d

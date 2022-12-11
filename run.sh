@@ -46,6 +46,7 @@ setup_disc() {
     ln -sfv "${WINEPREFIX}/drive_c/FF7DISC1" "${WINEPREFIX}/dosdevices/x:"
 
     wine regedit /app/etc/cd.reg
+    wine64 regedit /app/etc/cd.reg
 }
 
 ensure_7h_installed() {
