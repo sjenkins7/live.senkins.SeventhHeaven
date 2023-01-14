@@ -32,9 +32,10 @@ init_wine() {
     winetricks -q corefonts
     winetricks -q d3dcompiler_43
     winetricks -q d3dcompiler_47
+    winetricks -q dinput
 
-    winetricks -q vcrun2019 
-    winetricks -q dotnet48
+    wine64 /app/extra/dotnet-x64.exe
+    wine /app/extra/dotnet-x86.exe
 }
 
 setup_disc() {
@@ -65,6 +66,11 @@ ensure_7h_installed() {
         rm -f "${WINEPREFIX}/drive_c/Program Files/7th Heaven/7thWorkshop/settings.xml"
         mkdir -p "${WINEPREFIX}/drive_c/Program Files/7th Heaven/7thWorkshop"
         ln -sfv "${XDG_CONFIG_HOME}/7thWorkshop/settings.xml" "${WINEPREFIX}/drive_c/Program Files/7th Heaven/7thWorkshop/"
+    fi
+
+    if [ ! -f "${WINEPREFIX}/drive_c/Program Files/7th Heaven/dxvk.conf" ]
+    then
+        cp "/app/etc/dxvk.conf" "${WINEPREFIX}/drive_c/Program Files/7th Heaven/dxvk.conf"
     fi
 }
 
@@ -102,8 +108,9 @@ ensure_ff7_installed() {
             exit 1
         fi
         cp -r "${ff7_path}" "${WINEPREFIX}/drive_c/Games/"
+        mkdir -p "${WINEPREFIX}/drive_c/Games/FINAL FANTASY VII/mods/7th Heaven"
+        mkdir -p "${WINEPREFIX}/drive_c/Games/FINAL FANTASY VII/mods/Textures"
     fi
-    wine regedit /app/etc/ff7.reg
 }
 
 ensure_ff7_patch_applied() {
@@ -113,6 +120,7 @@ ensure_ff7_patch_applied() {
         cp "${WINEPREFIX}/drive_c/Program Files/7th Heaven/Resources/FF7_1.02_Eng_Patch/ff7.exe" "${WINEPREFIX}/drive_c/Games/FINAL FANTASY VII/ff7.exe"
         cp "${WINEPREFIX}/drive_c/Program Files/7th Heaven/Resources/FF7_1.02_Eng_Patch/FF7Config.exe" "${WINEPREFIX}/drive_c/Games/FINAL FANTASY VII/FF7Config.exe"
     fi
+    wine regedit /app/etc/ff7.reg
 }
 
 init_wine

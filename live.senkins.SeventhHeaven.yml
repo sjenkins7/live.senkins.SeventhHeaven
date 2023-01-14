@@ -6,6 +6,36 @@ base: org.winehq.Wine
 base-version: stable-22.08
 command: run.sh
 modules:
+  - name: wine-deps
+    buildsystem: simple
+    build-commands: 
+     - true
+    sources:
+      - type: extra-data
+        filename: dotnet-x86.exe
+        url: https://download.visualstudio.microsoft.com/download/pr/f63a565f-28cc-4cb0-94f4-e78bc2412801/f4e19159c0a2980b880ee6f1a73a1199/windowsdesktop-runtime-7.0.2-win-x86.exe
+        sha256: 5d0cce44fbcbb26bc2ce0fb01018064ec86ec8dc9c04cdebeda627fa160ede5f
+        size: 52923160
+      - type: extra-data
+        filename: dotnet-x64.exe
+        url: https://download.visualstudio.microsoft.com/download/pr/8d4ae76c-10d6-450c-b1c2-76b7b2156dc3/9207c5d5d0b608d8ec0622efa4419ed6/windowsdesktop-runtime-7.0.2-win-x64.exe
+        sha256: f9837b126eac04dda9cabd96cf3c1684240476dc723272f9a9d692cc4fac500a
+        size: 57757416
+  - name: 7th-heaven
+    buildsystem: simple
+    build-commands:
+      - install -D settings.xml /app/etc/settings.xml
+      - install -D dxvk.conf /app/etc/dxvk.conf
+    sources:
+      - type: file
+        path: settings.xml
+      - type: file
+        path: dxvk.conf
+      - type: extra-data
+        filename: 7thHeaven-Setup.exe
+        url: https://github.com/tsunamods-codes/7th-Heaven/releases/download/canary/7thHeaven-v2.9.9.86_Release.exe
+        sha256: 77964a20650e57d0b9b15bfd5a4fd1e0b8f21bcbac05bdb4efef2ca6fdd47064
+        size: 21344871
   - name: ffnx 
     buildsystem: simple
     build-commands:
@@ -18,18 +48,6 @@ modules:
         url: https://github.com/julianxhokaxhiu/FFNx/releases/download/1.14.0/FFNx-FF7_1998-v1.14.0.0.zip
         sha256: dbac9b9a3a53f12d7d7d67a45b4f9feec8e70dbc9aff83603c4d201dfa51e70f
         size: 40216850
-  - name: 7th-heaven
-    buildsystem: simple
-    build-commands:
-      - install -D settings.xml /app/etc/settings.xml
-    sources:
-      - type: file
-        path: settings.xml
-      - type: extra-data
-        filename: 7thHeaven-Setup.exe
-        url: https://github.com/tsunamods-codes/7th-Heaven/releases/download/2.7.1/7thHeaven-v2.7.1.0_Release.exe
-        sha256: 8c1adbb1deca0efaed145232268f35ca0a00aba71e6315008ab7361d3ace56c3
-        size: 20221645
   - name: main
     buildsystem: simple
     build-commands:
@@ -61,7 +79,7 @@ finish-args:
   - --filesystem=xdg-data/Steam:ro
   - --env=WINEDLLPATH=/app/dlls/lib32:/app/dlls/lib
   - --env=WINEPREFIX=/var/data/wine
-  - --env=WINEDLLOVERRIDES=winemenubuilder.exe=d,d3d9=d,d3d10core=d,d3d11=d,dxgi=d
+  - --env=WINEDLLOVERRIDES=winemenubuilder.exe=d,dinput=n
   - --env=GST_PLUGIN_SYSTEM_PATH=/app/lib32/gstreamer-1.0:/app/lib/gstreamer-1.0:/usr/lib/i386-linux-gnu/gstreamer-1.0:/usr/lib/x86_64-linux-gnu/gstreamer-1.0
 inherit-extensions:
   - org.freedesktop.Platform.Compat.i386
